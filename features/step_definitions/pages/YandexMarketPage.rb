@@ -1,4 +1,4 @@
-class YandexMarket < DefaultPage
+class YandexMarketPage < DefaultPage
 
     @@строка_поиска = { xpath: "//input[@id = 'header-search']" }
     @@найти         = { xpath: "//span[@class = 'search2__button']/button[@type = 'submit']" }

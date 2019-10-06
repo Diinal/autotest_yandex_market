@@ -31,7 +31,7 @@ end
     $STASH[key] = value
 end
 
-И(/^вводим в поле "(.*)" значение "(.*)" плюс "(.*)"$/) do |field, stash_value, num_value|
+И(/^вводим в поле "(.*)" сохраненное значение "(.*)" плюс "(.*)" руб$/) do |field, stash_value, num_value|
     value = $STASH[stash_value] + num_value.to_i
     $STASH[field] = value
     $page.send_value_to(field, value)
@@ -42,14 +42,10 @@ end
 end
 
 И(/^проверяем что все смартфоны находятся внутри ценового диапазона$/) do
-    $page.preloader_wait
+    $page.element_disappear('paranja')
     $page.check_smartphones_prices
 end
 
 Допустим(/^элемент "(.*)" находится на странице$/) do |element|
     error("Элемент #{element} не найден (#{$page.get_element(element)}).") if not $page.element_exist(element)
-end
-
-Тогда(/^проверяем наличие типа "(.*)" в элементе "(.*)"$/) do |text, element|
-    $page.check_text_in_block(text, element)
 end

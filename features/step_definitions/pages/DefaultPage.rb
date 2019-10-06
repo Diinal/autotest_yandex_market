@@ -1,14 +1,18 @@
 class DefaultPage
 
-    @@paranja = { xpath: "//div[@class = 'preloadable__preloader preloadable__preloader_visibility_visible preloadable__paranja']"}
+    @@paranja = { xpath: "//div[contains(@class, 'preloadable__preloader_visibility_visible')]" }
+
+    def get_element(element)
+        eval("@@#{element}")
+    end
 
     def change_page_to(page)
         case(page)
         when ('Яндекс Маркет')
-            $page = YandexMarket.new
+            $page = YandexMarketPage.new
             $current_url = $driver.current_url
         when ('Мобильные телефоны')
-            $page = MobilePhones.new
+            $page = MobilePhonesPage.new
             $current_url = $driver.current_url
         end
     end
@@ -23,30 +27,30 @@ class DefaultPage
     end
 
     def element_exist(element)
+        result = true
+        $driver.manage.timeouts.implicit_wait = 1
         begin
             $driver.find_element(get_element(element))
-        rescue => e
+        rescue Selenium::WebDriver::Error::NoSuchElementError => e
             result = false
         end
-        result = true
+        $driver.manage.timeouts.implicit_wait = $wait
+        result
     end
 
-    def preloader_wait
-        run = true
-        begin $driver.find_element(@@paranja)
-            wait = Selenium::WebDriver::Wait.new(:timeout => 0.2)
-        rescue => e
-            rin = false
+    def element_disappear(element, wait = $wait)
+        begin
+            $driver.find_element(get_element(element))
+        rescue Selenium::WebDriver::Error::NoSuchElementError => e
+            return
         end
-            $driver.manage.timeouts.implicit_wait = 0
-        while run
-            begin
-                element = wait.until { $driver.find_element(@@paranja) }
-            rescue => e
-                $driver.manage.timeouts.implicit_wait = 10
-                break
-            end
+
+        (0..wait).each do
+            return if not element_exist(element)
+            sleep 1
         end
+
+        error("Элемент не пропал (#{element})")
     end
 
 end

@@ -15,4 +15,6 @@ $page = DefaultPage.new
 
 $current_url = nil
 
+$wait = 10
+
 $STASH = {}

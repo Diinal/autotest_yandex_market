@@ -9,5 +9,5 @@ After do |scenario|
 end
 
 AfterStep do |scenario|
-    puts "Текущая страница: #{$current_url}"
+    puts "Текущая страница: #{$current_url}" if $current_url
 end

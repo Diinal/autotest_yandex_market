@@ -8,7 +8,8 @@
             "name": "Cucumber",
             "type": "Ruby",
             "request": "launch",
-            "program": "/var/lib/gems/2.3.0/gems/cucumber-3.1.2/bin/cucumber"
+            "program": "/var/lib/gems/2.3.0/gems/cucumber-3.1.2/bin/cucumber",
+            "args": ["-t", "@all"]
         }
     ]
 }

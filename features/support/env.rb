@@ -7,9 +7,11 @@ def error(message)
     raise(message)
 end
 
-if ARGV.include?('-Chrome')
+browser_type = (ENV['BROWSER'] ? ENV['BROWSER'] : 'Chrome'
+
+if browser_type =='Chrome'
     Selenium::WebDriver::Chrome::Service.driver_path = 'features/support/webdrivers/chromedriver'
-elsif ARGV.include?('-IE') or ARGV.include?('-Firefox')
+else
     error("Этот браузер не поддерживается")
 end
 

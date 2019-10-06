@@ -9,7 +9,7 @@ Before do
 end
 
 After do |scenario|
-    $driver.quit if $driver
+    $driver ? $driver.quit : error('Something went wrong.')
 end
 
 AfterStep do |scenario|

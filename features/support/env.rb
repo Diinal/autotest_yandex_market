@@ -7,13 +7,9 @@ def error(message)
     raise(message)
 end
 
-browser_type = (ENV['BROWSER'] ? ENV['BROWSER'] : 'Chrome')
+$browser_type = (ENV['BROWSER'] ? ENV['BROWSER'] : 'Chrome')
 
-if browser_type =='Chrome'
-    Selenium::WebDriver::Chrome::Service.driver_path = 'features/support/webdrivers/chromedriver'
-else
-    error("Этот браузер не поддерживается")
-end
+Selenium::WebDriver::Chrome::Service.driver_path = 'features/support/webdrivers/chromedriver'
 
 $page = DefaultPage.new
 

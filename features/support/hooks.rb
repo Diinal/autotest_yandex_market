@@ -1,5 +1,9 @@
 Before do
-    $driver = Selenium::WebDriver.for :chrome
+    if $browser_type =='Chrome'
+        $driver = Selenium::WebDriver.for :chrome
+    else
+        error("Этот браузер не поддерживается")
+    end
     $driver.manage.window.maximize
     $driver.manage.timeouts.implicit_wait = 10
 end
